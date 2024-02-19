@@ -183,12 +183,12 @@ function initWebSocket() {
         document.getElementById("progress-bar").style.width = `${progress}%`;
       } else if (parsed.type === "status" && !parsed.data.sid) {
         if (parsed.data.status.exec_info.queue_remaining === 0) {
-          requestGET("/history", (endpoint, response) => {
+          requestGET(`https://${comfyUIServerAddr}/history", (endpoint, response) => {
             if (State.prompt_id) {
               let pid = response[State.prompt_id];
               let images = pid.outputs[State.output_image_node].images;
               images.forEach((image) => {
-                let img_url = `/view?filename=${image.filename}&subfolder=${image.subfolder}&type=${image.type}`;
+                let img_url = `${comfyUIServerAddr}/view?filename=${image.filename}&subfolder=${image.subfolder}&type=${image.type}`;
                 getImage(img_url);
               });
             }
