@@ -21,7 +21,8 @@ def create_app(comfy_port=8188):
   @sock.route('/ws')
   def proxy(ws):
     while True:
-        data = comfyui_ws.receive()
+        code, data = comfyui_ws.recv_data()
+        print(f"{code}: {data}")
         ws.send(data)
 
   @app.route("/")
