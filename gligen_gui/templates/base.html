@@ -14,13 +14,9 @@
   </head>
 
   <body>
-    <div class="row">
-      <div class="card">
-        <div class="row">
-          <div class="title"><label>Input comfyUI server address:</label><input type="text" style="width: 800px" id="comfy-ui-server-addr" placeholder="ws://127.0.0.1:8181" /></div>
-        </div>
-      </div>
-    </div>
+    <div style="margin: 20px; align-content: center;"><label style="color: black">Input comfyUI server address:</label><input type="text" style="width: 800px" id="comfy-ui-server-addr" placeholder="127.0.0.1:8181" /></div>
+
+    <div id="body-main">
     <div id="toast-container">
       <!-- <div class="toast">
         <div class="toast-header-row">
@@ -271,6 +267,7 @@
         >
       </div>
     </main>
+    </div>
   </body>
   <script>var secret_message="test"</script>
   <script src="{{url_for('static',filename="js/nodes.js")}}"></script>
