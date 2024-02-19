@@ -202,11 +202,12 @@ function initWebSocket() {
   });
 }
 
+initWebSocket();
+
 function queuePrompt() {
   let pb = document.getElementById("progress-bar");
   pb.style.width = "0%";
   let prompt = buildPrompt();
-  initWebSocket();
   requestPOST(
     "/prompt",
     {
