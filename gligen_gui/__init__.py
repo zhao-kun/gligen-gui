@@ -14,7 +14,7 @@ global BASE_PROMPT
 def create_app(comfy_port=8188):
   app = flask.Flask(__name__, instance_relative_config=True)
   app.config['CORS_HEADERS'] = 'Content-Type'
-  sock = Sock(app, origins='*')
+  sock = Sock(app)
   from websocket import create_connection
   comfyui_ws = create_connection(f"ws://127.0.0.1:{comfy_port}/ws?clientID=1122")
 
