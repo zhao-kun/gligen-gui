@@ -33,18 +33,17 @@ def create_app(comfy_port=8188):
 
   @app.route("/<endpoint>", methods=['GET'])
   def get_endpoint(endpoint=None):
-      print(f"GET: {endpoint}")
       args = flask.request.args
       if len(args) > 0:
           queries = urllib.parse.urlencode(dict(args))
           try:
-              print(f"foward to: http://127.0.0.1:{comfy_port}/{endpoint}?{queries}")
+              print(f"foward to GET: http://127.0.0.1:{comfy_port}/{endpoint}?{queries}")
               res = urllib.request.urlopen(f"http://127.0.0.1:{comfy_port}/{endpoint}?{queries}")
               return res
           except urllib.error.HTTPError as e:
               return e.read()
 
-      print(f"foward to: http://127.0.0.1:{comfy_port}/{endpoint}")
+      print(f"foward to GET: http://127.0.0.1:{comfy_port}/{endpoint}")
       req = urllib.request.Request(f"http://127.0.0.1:{comfy_port}/{endpoint}")
       try:
           response = urllib.request.urlopen(req)
@@ -55,9 +54,9 @@ def create_app(comfy_port=8188):
 
   @app.route("/<endpoint>", methods=['POST'])
   def post_endpoint(endpoint=None):
-      print(f"POST: {endpoint}")
       payload = flask.request.get_json()
       data = json.dumps(payload).encode('utf-8')
+      print(f"forward to: http://127.0.0.1:{comfy_port}/{endpoint}")
       req = urllib.request.Request(f"http://127.0.0.1:{comfy_port}/{endpoint}",
                                   data=data)
       try:
