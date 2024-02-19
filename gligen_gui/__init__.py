@@ -3,6 +3,9 @@ import json
 import urllib.request
 import urllib.parse
 import urllib.error
+from flask_sock import sock
+#import websocket library of flask to handling the websocket   
+
 
 VERSION = "0.1"
 
@@ -11,6 +14,15 @@ global BASE_PROMPT
 def create_app(comfy_port=8188):
   app = flask.Flask(__name__, instance_relative_config=True)
   app.config['CORS_HEADERS'] = 'Content-Type'
+  app = sock(app, origins='*')
+  from websocket import create_connection
+  comfyui_ws = create_connection(f"ws://127.0.0.1:{comfy_port}/ws?clientID=1122")
+
+  @sock.route('/ws')
+  def proxy(ws):
+    while True:
+        data = comfyui_ws.receive()
+        ws.send(data)
 
   @app.route("/")
   @app.route("/port/<port_number>")
