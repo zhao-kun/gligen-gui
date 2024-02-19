@@ -171,7 +171,8 @@ function getImage(endpoint) {
 }
 
 function initWebSocket() {
-  const socket = new WebSocket(`wss:///ws`);
+  const host = window.location.host;
+  const socket = new WebSocket(`wss://${host}/ws`);
   socket.addEventListener("open", (event) => {});
   socket.addEventListener("message", (event) => {
     try {
