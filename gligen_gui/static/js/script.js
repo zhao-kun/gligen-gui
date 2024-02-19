@@ -171,7 +171,7 @@ function getImage(endpoint) {
 
 function initWebSocket() {
   let comfyUIServerAddr = document.getElementById("comfy-ui-server-addr").value;
-  let sockAddr = `ws://${comfyUIServerAddr}/ws?clientId=1122`
+  let sockAddr = `wss://${comfyUIServerAddr}/ws?clientId=1122`
   console.log("Connecting to ", sockAddr);
   const socket = new WebSocket(sockAddr);
   socket.addEventListener("open", (event) => {});
