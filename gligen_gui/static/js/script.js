@@ -183,7 +183,7 @@ function initWebSocket() {
         document.getElementById("progress-bar").style.width = `${progress}%`;
       } else if (parsed.type === "status" && !parsed.data.sid) {
         if (parsed.data.status.exec_info.queue_remaining === 0) {
-          requestGET(`https://${comfyUIServerAddr}/history`, (endpoint, response) => {
+          requestGET(`/history`, (endpoint, response) => {
             if (State.prompt_id) {
               let pid = response[State.prompt_id];
               let images = pid.outputs[State.output_image_node].images;
