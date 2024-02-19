@@ -186,9 +186,10 @@ function initWebSocket() {
           requestGET(`/history`, (endpoint, response) => {
             if (State.prompt_id) {
               let pid = response[State.prompt_id];
+              console.log(response)
               let images = pid.outputs[State.output_image_node].images;
               images.forEach((image) => {
-                let img_url = `https://${comfyUIServerAddr}/view?filename=${image.filename}&subfolder=${image.subfolder}&type=${image.type}`;
+                let img_url = `/view?filename=${image.filename}&subfolder=${image.subfolder}&type=${image.type}`;
                 getImage(img_url);
               });
             }
