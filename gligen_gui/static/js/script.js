@@ -1,3 +1,5 @@
+const host = window.location.host;
+
 function requestGET(endpoint, handler) {
   fetch(endpoint, {
     method: "GET",
@@ -173,7 +175,7 @@ function initWebSocket() {
   let comfyUIServerAddr = document.getElementById("comfy-ui-server-addr").value;
   let sockAddr = `wss://${comfyUIServerAddr}/ws?clientId=1122`
   console.log("Connecting to ", sockAddr);
-  const socket = new WebSocket("/ws");
+  const socket = new WebSocket(`wss://${host}/ws`);
   socket.addEventListener("open", (event) => {});
   socket.addEventListener("message", (event) => {
     try {
