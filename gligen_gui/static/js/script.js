@@ -1,4 +1,3 @@
-const host = window.location.host;
 
 function requestGET(endpoint, handler) {
   fetch(endpoint, {
@@ -172,7 +171,7 @@ function getImage(endpoint) {
 }
 
 function initWebSocket() {
-  const socket = new WebSocket(`wss://${host}/ws`);
+  const socket = new WebSocket(`wss:///ws`);
   socket.addEventListener("open", (event) => {});
   socket.addEventListener("message", (event) => {
     try {
