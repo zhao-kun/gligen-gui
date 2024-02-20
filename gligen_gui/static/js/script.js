@@ -1,3 +1,4 @@
+
 function requestGET(endpoint, handler) {
   fetch(endpoint, {
     method: "GET",
@@ -170,9 +171,8 @@ function getImage(endpoint) {
 }
 
 function initWebSocket() {
-  const socket = new WebSocket(
-    `ws://127.0.0.1:${State.comfy_ui_port || "8188"}/ws?clientId=1122`
-  );
+  const host = window.location.host;
+  const socket = new WebSocket(`wss://${host}/ws`);
   socket.addEventListener("open", (event) => {});
   socket.addEventListener("message", (event) => {
     try {
@@ -182,9 +182,10 @@ function initWebSocket() {
         document.getElementById("progress-bar").style.width = `${progress}%`;
       } else if (parsed.type === "status" && !parsed.data.sid) {
         if (parsed.data.status.exec_info.queue_remaining === 0) {
-          requestGET("/history", (endpoint, response) => {
+          requestGET(`/history`, (endpoint, response) => {
             if (State.prompt_id) {
               let pid = response[State.prompt_id];
+              console.log(response)
               let images = pid.outputs[State.output_image_node].images;
               images.forEach((image) => {
                 let img_url = `/view?filename=${image.filename}&subfolder=${image.subfolder}&type=${image.type}`;
@@ -198,11 +199,12 @@ function initWebSocket() {
   });
 }
 
+initWebSocket();
+
 function queuePrompt() {
   let pb = document.getElementById("progress-bar");
   pb.style.width = "0%";
   let prompt = buildPrompt();
-  initWebSocket();
   requestPOST(
     "/prompt",
     {

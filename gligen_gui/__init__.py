@@ -3,6 +3,9 @@ import json
 import urllib.request
 import urllib.parse
 import urllib.error
+from flask_sock import Sock
+#import websocket library of flask to handling the websocket   
+
 
 VERSION = "0.1"
 
@@ -11,6 +14,16 @@ global BASE_PROMPT
 def create_app(comfy_port=8188):
   app = flask.Flask(__name__, instance_relative_config=True)
   app.config['CORS_HEADERS'] = 'Content-Type'
+  sock = Sock(app)
+  from websocket import create_connection
+  comfyui_ws = create_connection(f"ws://127.0.0.1:{comfy_port}/ws?clientID=1122")
+
+  @sock.route('/ws')
+  def proxy(ws):
+    while True:
+        data = comfyui_ws.recv()
+        print(f"data: {data}")
+        ws.send(data)
 
   @app.route("/")
   @app.route("/port/<port_number>")
@@ -37,11 +50,13 @@ def create_app(comfy_port=8188):
       if len(args) > 0:
           queries = urllib.parse.urlencode(dict(args))
           try:
+              print(f"foward to GET: http://127.0.0.1:{comfy_port}/{endpoint}?{queries}")
               res = urllib.request.urlopen(f"http://127.0.0.1:{comfy_port}/{endpoint}?{queries}")
               return res
           except urllib.error.HTTPError as e:
               return e.read()
 
+      print(f"foward to GET: http://127.0.0.1:{comfy_port}/{endpoint}")
       req = urllib.request.Request(f"http://127.0.0.1:{comfy_port}/{endpoint}")
       try:
           response = urllib.request.urlopen(req)
@@ -54,6 +69,7 @@ def create_app(comfy_port=8188):
   def post_endpoint(endpoint=None):
       payload = flask.request.get_json()
       data = json.dumps(payload).encode('utf-8')
+      print(f"forward to: http://127.0.0.1:{comfy_port}/{endpoint}")
       req = urllib.request.Request(f"http://127.0.0.1:{comfy_port}/{endpoint}",
                                   data=data)
       try:
