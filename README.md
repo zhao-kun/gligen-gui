@@ -1,3 +1,13 @@
+
+> Updated Notes: To adapt to the cloud environment at [MegaEase](cloud.megaease.cn), I enhanced the original GLIGEN GUI, which includes:
+> 1. By adding support for proxying websockets to communicate with the backend server (ComfyUI) 
+> 2. Adding a `start.sh` script for easy server startup, especially for non-technical users.
+> 
+> 更新日志: 为了适配[Megacloud GPU 服务的云环境](cloud.megaease.cn)，我对原始的GLIGEN GUI进行了增强。增强包括:
+> 1. 支持代理websocket与后端(ComfyUI)服务器进行通信。
+> 2. 添加了start.sh脚本，以帮助非技术用户轻松启动服务器。
+> 
+
 <p align="center">
 If you would like to show your appreciation for this project,<br>please consider a donation :)<br><br>
 <a href="https://www.paypal.com/donate/?business=Y4Y75KP2JBNJW&currency_code=USD">
