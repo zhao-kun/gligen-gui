@@ -7,7 +7,7 @@
 > 1. 支持代理websocket与后端(ComfyUI)服务器进行通信。
 > 2. 添加了start.sh脚本，以帮助非技术用户轻松启动服务器。
 >
-> [B 站教学视频](https://github.com/zhao-kun/gligen-gui)
+> [B 站教学视频](https://www.bilibili.com/video/BV1sv421k7uX)
 >
 
 <p align="center">
