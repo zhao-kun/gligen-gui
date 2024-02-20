@@ -6,7 +6,9 @@
 > 更新日志: 为了适配[Megacloud GPU 服务的云环境](cloud.megaease.cn)，我对原始的GLIGEN GUI进行了增强。增强包括:
 > 1. 支持代理websocket与后端(ComfyUI)服务器进行通信。
 > 2. 添加了start.sh脚本，以帮助非技术用户轻松启动服务器。
-> 
+>
+> [B 站教学视频](https://github.com/zhao-kun/gligen-gui)
+>
 
 <p align="center">
 If you would like to show your appreciation for this project,<br>please consider a donation :)<br><br>
